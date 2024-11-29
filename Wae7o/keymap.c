@@ -182,6 +182,7 @@ bool achordion_chord(uint16_t tap_hold_keycode,
       if (other_keycode == KC_E) { return true; }
       if (other_keycode == KC_I) { return true; }
       break;
+  }
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
