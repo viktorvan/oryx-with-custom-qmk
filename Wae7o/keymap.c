@@ -120,7 +120,7 @@ bool rgb_matrix_indicators_user(void) {
       return false;
   }
   if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
+  switch (biton32(layer_state)){
     case 1:
       set_layer_color(1);
       break;
@@ -176,11 +176,11 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
   switch (tap_hold_keycode) {
-    case KC_BSPC:
+    case LT(7,KC_BSPC):
       if (other_keycode == KC_M) { return true; }
-      if (other_keycode == KC_N) { return true; }
-      if (other_keycode == KC_E) { return true; }
-      if (other_keycode == KC_I) { return true; }
+      if (other_keycode == MT(MOD_RSFT, KC_N)) { return true; }
+      if (other_keycode == MT(MOD_RCTL, KC_E)) { return true; }
+      if (other_keycode == MT(MOD_RALT, KC_I)) { return true; }
       break;
   }
 
