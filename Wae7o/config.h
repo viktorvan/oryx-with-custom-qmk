@@ -9,7 +9,7 @@
 #define ACHORDION_STREAK
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "Wae7o/gPWna"
+#define SERIAL_NUMBER "Wae7o/Azzrvo"
 #define LAYER_STATE_16BIT
 
 #define RGB_MATRIX_STARTUP_SPD 60
