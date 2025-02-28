@@ -3,7 +3,10 @@
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
+#define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
+#define QUICK_TAP_TERM 0
+#define ACHORDION_STREAK
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define SERIAL_NUMBER "Wae7o/OaaPz3"
