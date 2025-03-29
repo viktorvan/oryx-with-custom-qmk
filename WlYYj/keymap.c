@@ -4,6 +4,11 @@
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
+// layer repeat functionality:
+// Copyright 2024 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+#define LT_REP LT(7, KC_0)
+
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
   ST_MACRO_0,
@@ -21,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,           LT(3,KC_W),     LT(4,KC_F),     LT(2,KC_P),     LT(5,KC_B),                                     LT(6,KC_J),     LT(1,KC_L),     KC_U,           KC_Y,           KC_SCLN,        KC_LBRC,        
     MT(MOD_LCTL, KC_ESCAPE),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_R),MT(MOD_LCTL, KC_S),MT(MOD_LSFT, KC_T),KC_G,                                           KC_M,           MT(MOD_RSFT, KC_N),MT(MOD_RCTL, KC_E),MT(MOD_RALT, KC_I),MT(MOD_RGUI, KC_O),KC_QUOTE,       
     CW_TOGG,        KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,                                           KC_K,           KC_H,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_ENTER,       
-                                                    KC_SPACE, LT(7, QK_REP),                                        QK_REP,         LT(7,KC_BSPC)
+                                                    KC_SPACE,       LT_REP,                                         QK_REP,         LT(7,KC_BSPC)
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         
@@ -146,8 +151,21 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
+  if (keycode == LT_REP) { return false; }
+  return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case LT_REP:
+      if (record->tap.count) {  // On tap.
+        repeat_key_invoke(&record->event);  // Repeat the last key.
+        return false;  // Skip default handling.
+      }
+      break;
+
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)) SS_DELAY(100) SS_TAP(X_SPACE));
