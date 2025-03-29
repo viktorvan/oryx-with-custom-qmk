@@ -68,12 +68,17 @@ jobs:
           git commit -m "✨(oryx): ${{ steps.download-layout-source.outputs.change_description }}" || echo "No layout change"
           git push
 
-      - name: Merge Oryx with custom QMK
+      # - name: Merge Oryx with custom QMK
+      #   run: |
+      #     git fetch origin main
+      #     git checkout -B main origin/main
+      #     git merge -Xignore-all-space oryx
+      #     git push
+
+      - name: Checkout main
         run: |
           git fetch origin main
           git checkout -B main origin/main
-          git merge -Xignore-all-space oryx
-          git push
 
       - name: Update QMK firmware submodule to latest version (${{ steps.download-layout-source.outputs.firmware_version }})
         run: |
